@@ -30,6 +30,9 @@ clock.start();
 setTimeout(()=>clock.stop(), 10000);  //10초 시나면 stop 함수를 호출시켜 반복 멈추기
 
 
+
+
+
 //함수 사용 방법 (포맷)
 function func() {console.log('hello')}
 

@@ -32,6 +32,14 @@ table {
   margin: 0 auto;
 }
 
+form {
+  margin: 0 auto;
+  padding: 20px;
+  width: 500px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
 a {
   text-decoration: none;
 }

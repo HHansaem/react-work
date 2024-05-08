@@ -5,6 +5,8 @@ import BadgeEx from './BadgeEx';
 import BreadCrumbEx from './BreadCrumbEx';
 import ButtonEx from './ButtonEx';
 import ButtonDropdownEx from './ButtonDropdownEx';
+import CardEx from './CardEx';
+import CollapseEx from './CollapseEx';
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
       {/* <BadgeEx /> */}
       {/* <BreadCrumbEx /> */}
       {/* <ButtonEx /> */}
-      <ButtonDropdownEx />
+      {/* <ButtonDropdownEx /> */}
+      {/* <CardEx /> */}
+      <CollapseEx />
     </div>
   );
 }

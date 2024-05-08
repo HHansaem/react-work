@@ -9,9 +9,9 @@ function App() {
   return (
     <div>
       {/* <MakeAccount /> */}
-      <AccountInfo />
+      {/* <AccountInfo /> */}
       {/* <Deposit /> */}
-      {/* <Withdraw /> */}
+      <Withdraw />
       {/* <AllAccountInfo /> */}
     </div>
   );

@@ -1,13 +1,17 @@
 import {useState} from 'react';
+import axios from 'axios';
 
 export const MakeAccount = () => {
-    const [acc, setAcc] = useState({id:'', name:'', money:'', type:'normal', grade:''});
+    const [acc, setAcc] = useState({id:'', name:'', balance:'', type:'normal', grade:''});
     const changeValue = (e) => {
         setAcc({...acc, [e.target.name]:e.target.value})
     }
     const submit = (e) => {
         e.preventDefault();
-        console.log(acc);  //JSON.stringify(acc)는 문자열로 넘기는 것
+        axios.post('http://localhost:8090/makeAccount', acc)
+            .then(res=>{
+                alert(res.data);
+            })
     }
 
     return(
@@ -25,7 +29,7 @@ export const MakeAccount = () => {
                     </tr>
                     <tr>
                         <th>입금액</th>
-                        <td><input type="text" name="money" onChange={changeValue}/></td>
+                        <td><input type="text" name="balance" onChange={changeValue}/></td>
                     </tr>
                     <tr>
                         <th>종류</th>

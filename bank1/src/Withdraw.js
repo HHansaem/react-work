@@ -1,4 +1,5 @@
 import {useState}  from 'react';
+import axios from 'axios';
 
 export default function Withdraw() {
     
@@ -8,7 +9,13 @@ export default function Withdraw() {
     const submit = (e) => {
         e.preventDefault();
         //backend를 acc를 전송한 후 잔액 받기
-        setMessage(`출금 성공 (잔액:${100000 - +acc.money})`);
+        axios.post("http://localhost:8090/withdraw", acc)
+            .then(res=> {
+                setMessage(`출금 성공 (잔액:${res.data})`);
+            })
+            .catch(err=> {
+                setMessage(`출금 실패 :${err.response.data}`);
+            })
     }
 
     return(

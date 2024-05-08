@@ -18,7 +18,7 @@ export default function AccountInfo() {
     }
 
     return(
-        <div>
+        <div className='route'>
             <h3>계좌조회</h3>
             <table border="1">
                 <tbody>

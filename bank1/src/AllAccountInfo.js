@@ -14,27 +14,29 @@ export default function AllAccountInfo() {
     },[])
     return(
         <>
-            <h3>전체계좌조회</h3>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <th>계좌번호</th>
-                        <th>이름</th>
-                        <th>잔액</th>
-                        <th>종류</th>
-                        <th>등급</th>
-                    </tr>
-                    {accs.map(acc=>(
-                        <tr key={acc.id}>
-                            <td>{acc.id}</td>
-                            <td>{acc.name}</td>
-                            <td>{acc.balance}</td>
-                            <td>{acc.type}</td>
-                            <td>{acc.grade}</td>
+            <div className='route'>
+                <h3>전체계좌조회</h3>
+                <table border="1">
+                    <tbody>
+                        <tr>
+                            <th>계좌번호</th>
+                            <th>이름</th>
+                            <th>잔액</th>
+                            <th>종류</th>
+                            <th>등급</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                        {accs.map(acc=>(
+                            <tr key={acc.id}>
+                                <td>{acc.id}</td>
+                                <td>{acc.name}</td>
+                                <td>{acc.balance}</td>
+                                <td>{acc.type}</td>
+                                <td>{acc.grade}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }

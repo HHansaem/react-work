@@ -43,3 +43,12 @@ form {
 a {
   text-decoration: none;
 }
+
+.label {
+  display: inline-block;
+  width: 100px;
+}
+
+.label-text {
+  text-align: center;
+}

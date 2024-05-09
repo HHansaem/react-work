@@ -42,7 +42,7 @@ export const MakeAccount = () => {
                         <Label check for="type" sm={3}>종류</Label>
                         <Col sm={9}>
                             <Input type="radio" name="type" id="type" value="normal" onChange={changeValue} checked={acc.type == 'normal'} />
-                            일반
+                            일반&nbsp;&nbsp;&nbsp;
                             <Input type="radio" name="type" id="type" value="special" onChange={changeValue} />
                             특수
                         </Col>
@@ -59,7 +59,7 @@ export const MakeAccount = () => {
                             </Input>
                         </Col>
                     </FormGroup>
-                    <Button onClick={submit}>개설</Button>
+                    <Button onClick={submit}>계좌개설</Button>
                 </Form>
             </div>
         </>

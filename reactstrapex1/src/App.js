@@ -8,6 +8,7 @@ import ButtonDropdownEx from './ButtonDropdownEx';
 import CardEx from './CardEx';
 import CollapseEx from './CollapseEx';
 import FadeEx from './FadeEx';
+import ModalEx from './ModalEx';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
       {/* <ButtonDropdownEx /> */}
       {/* <CardEx /> */}
       {/* <CollapseEx /> */}
-      <FadeEx />
+      {/* <FadeEx /> */}
+      <ModalEx />
     </div>
   );
 }

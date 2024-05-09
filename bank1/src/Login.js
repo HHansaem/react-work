@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import axios from 'axios';
+import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {useNavigate} from 'react-router-dom';
 
 export const Login = () => {
@@ -24,23 +25,22 @@ export const Login = () => {
 
     return(
         <div className='route'>
-            <h3>로그인</h3>
-            <table border="1">
-                <tbody>
-                    <tr>
-                        <th>아이디</th>
-                        <td><input type="text" name="id" onChange={changeValue}/></td>
-                    </tr>
-                    <tr>
-                        <th>비밀번호</th>
-                        <td><input type="text" name="password" onChange={changeValue}/></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td><input type="submit" value="로그인" onClick={submit}/></td>
-                    </tr>
-                </tbody>
-            </table>
+            <h4>로그인</h4>
+            <Form>
+                <FormGroup row>
+                    <Label for="id" sm={3}>아이디</Label>
+                    <Col sm={9}>
+                        <Input type="text" name="id" id="id" onChange={changeValue} />
+                    </Col>
+                </FormGroup>
+                <FormGroup row>
+                    <Label for="password" sm={3}>비밀번호</Label>
+                    <Col sm={9}>
+                        <Input type="text" name="password" id="password" onChange={changeValue} />
+                    </Col>
+                </FormGroup>
+                <Button onClick={submit}>로그인</Button>
+            </Form>
         </div>
     )
 }

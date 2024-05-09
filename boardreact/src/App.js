@@ -1,0 +1,18 @@
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import {Routes, Route} from 'react-router-dom';
+import Main from './component/Main';
+import BoardList from './component/BoardList';
+
+function App() {
+  return (
+    <div>
+      <Main />
+      <Routes>
+        <Route exect path="/" element={<BoardList/>} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;

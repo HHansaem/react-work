@@ -1,29 +1,84 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useNavigate } from 'react-router';
 
 export const MakeAccount = () => {
     const [acc, setAcc] = useState({ id: '', name: '', balance: '', type: 'normal', grade: '' });
+    const [modal, setModal] = useState(false);
+    const [title, setTitle] = useState('');
+    const [message, setMessage] = useState('');
+    const [isBefore, setIsBefore] = useState(true);
+    const [isIdCheck, setIsIdCheck] = useState(false);
+
+    const navigate = useNavigate();
+
     const changeValue = (e) => {
         setAcc({ ...acc, [e.target.name]: e.target.value })
     }
+
     const submit = (e) => {
         e.preventDefault();
+        setTitle('계좌개설');
+        setMessage('계좌를 개설하시겠습니까?');
+        setIsBefore(true);
+        setModal(true);
+    }
+
+    const modalOk = (e) => {
         axios.post('http://localhost:8090/makeAccount', acc)
             .then(res => {
-                alert(res.data);
+                setIsIdCheck(false);
+                setTitle('개설확인');
+                setMessage(res.data);
+                setIsBefore(false);
+                setModal(true);
+            })
+        setModal(false);
+    }
+
+    const makeOk = (e) => {
+        if(!isIdCheck) {
+            navigate("/accountInfo");
+        }
+        setModal(!modal);
+    }
+
+    const checkId = (e) => {
+        e.preventDefault();
+        setIsIdCheck(true);
+        axios.post(`http://localhost:8090/checkAccId?id=${acc.id}`)
+            .then(res=> {
+                setTitle("중복 확인");
+                if(res.data == true) {
+                    setMessage("사용중인 계좌번호입니다");
+                } else {
+                    setMessage("사용 가능한 계좌번호입니다");
+                }
+                setIsBefore(false);
+                setModal(true);
+            })
+            .catch(err=> {
+                setTitle("중복 확인");
+                setMessage(err.response.data);
+                setIsBefore(false);
+                setModal(true);
             })
     }
 
     return (
         <>
             <div className='route'>
-                <h3>계좌개설</h3>
+                <h4>계좌개설</h4>
                 <Form>
                     <FormGroup row>
                         <Label for="id" sm={3}>계좌번호</Label>
-                        <Col sm={9}>
+                        <Col sm={6}>
                             <Input type="text" name="id" id="id" onChange={changeValue} />
+                        </Col>
+                        <Col sm={3}>
+                            <Button color='success' onClick={checkId}>중복</Button>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -50,7 +105,7 @@ export const MakeAccount = () => {
                     <FormGroup row>
                         <Label for="grade" sm={3}>등급</Label>
                         <Col sm={9}>
-                            <Input type="select" name="grade" onChange={changeValue}>
+                            <Input type="select" name="grade" onChange={changeValue} disabled={acc.type=='normal'}>
                                 <option value="">선택하세요</option>
                                 <option value="vip">VIP</option>
                                 <option value="gold">Gold</option>
@@ -61,6 +116,20 @@ export const MakeAccount = () => {
                     </FormGroup>
                     <Button onClick={submit}>계좌개설</Button>
                 </Form>
+
+                <Modal isOpen={modal} toggle={() => setModal(!modal)}>
+                    <ModalHeader toggle={() => setModal(!modal)}>{title}</ModalHeader>
+                    <ModalBody>
+                        {message}
+                    </ModalBody>
+                    { isBefore && <ModalFooter>
+                        <Button color="primary" onClick={modalOk}>확인</Button>
+                        <Button color="secondary" onClick={() => setModal(!modal)}>취소</Button>
+                    </ModalFooter> }
+                    { !isBefore && <ModalFooter>
+                        <Button color="primary" onClick={makeOk}>확인</Button>
+                    </ModalFooter>}
+                </Modal>
             </div>
         </>
     )

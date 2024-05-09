@@ -1,6 +1,7 @@
 //전체 계좌 목록은 화면이 요청되자마자 백앤드에 요청해서 가져와야 함
 import {useState, useEffect} from 'react';  
 import axios from 'axios';
+import { Table } from 'reactstrap';
 
 export default function AllAccountInfo() {
     const [accs, setAccs] = useState([]);
@@ -15,8 +16,8 @@ export default function AllAccountInfo() {
     return(
         <>
             <div className='route'>
-                <h3>전체계좌조회</h3>
-                <table border="1">
+                <h4>전체계좌조회</h4>
+                <Table bordered style={{width:'800px', margin:'0 auto'}}>
                     <tbody>
                         <tr>
                             <th>계좌번호</th>
@@ -35,7 +36,7 @@ export default function AllAccountInfo() {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </Table>
             </div>
         </>
     )

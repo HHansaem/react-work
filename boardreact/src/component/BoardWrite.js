@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {Navigate, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {url} from '../config';
@@ -7,6 +8,7 @@ const BoardWrite = () => {
     const divStyle = {margin:"0 auto", padding:'20px', width: '650px', border:'1px solid lightgray', borderRadius: '10px'};
     const [board, setBoard] = useState({ writer: '', subject: '', content: '' });
     const [fileList, setFileList] = useState([]);
+    const navigate = useNavigate();
 
     const changeValue = (e) => {
         setBoard({ ...board, [e.target.name]: e.target.value });
@@ -30,6 +32,7 @@ const BoardWrite = () => {
         axios.post(`${url}/boardWrite`, formData)
             .then(res=> {
                 console.log(res.data);
+                navigate("/");
             })
             .catch(err=> {
                 console.log(err);

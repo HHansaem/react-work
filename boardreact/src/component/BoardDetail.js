@@ -18,10 +18,11 @@ const BoardDetail = () => {
             .then(res=> {
                 let resBoard = res.data.board;
                 setBoard({...resBoard});
-                setHeart({...res.data.like});
+                setHeart(res.data.like);
 
                 let fileNums = resBoard.fileNums.split(",");
                 setImageList([...fileNums]);
+                console.log(res.data);
                 console.log(fileNums);
             })
             .catch(err=> {

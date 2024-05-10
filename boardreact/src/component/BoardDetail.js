@@ -9,12 +9,18 @@ const BoardDetail = () => {
     const [board, setBoard] = useState({num:'', subject:'', content:'', writer:'', likeCount:0});
     const [imageList, setImageList] = useState([]);
     const [heart, setHeart] = useState(false);
+    const [user, setUser] = useState(null);
     const {num} = useParams();
-    let id = 'hong';
 
     // 뜨자마자 요청해서 가져오니까 useEffect 사용
     useEffect(()=> {
-        axios.get(`${url}/boardDetail/${num}/${id}`)
+        let loginUser = JSON.parse(sessionStorage.getItem("user"));
+        let detailUrl = `${url}/boardDetail/${num}`;
+        if(loginUser != null) {
+            detailUrl += `/${loginUser.id}`;
+            setUser({...loginUser});
+        }
+        axios.get(detailUrl)
             .then(res=> {
                 let resBoard = res.data.board;
                 setBoard({...resBoard});
@@ -64,8 +70,8 @@ const BoardDetail = () => {
                             <td>
                                 <Button color='primary'>수정</Button>&nbsp;&nbsp;
                                 <Button color='secondary' tag='a' href="/">목록</Button>&nbsp;&nbsp;
-                                <img src={heart===true? '/redheart.png':'/blackheart.png'} alt='' width='30px' />&nbsp;
-                                <span>{board.likeCount}</span>
+                                {user && <img src={heart===true? '/redheart.png':'/blackheart.png'} alt='' width='30px'/>}
+                                &nbsp;<span>{board.likeCount}</span>
                             </td>
                         </tr>
                     </tbody>

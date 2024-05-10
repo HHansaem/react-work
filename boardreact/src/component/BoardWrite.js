@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -9,6 +9,11 @@ const BoardWrite = () => {
     const [board, setBoard] = useState({ writer: '', subject: '', content: '' });
     const [fileList, setFileList] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(()=> {
+        let loginUser = JSON.parse(sessionStorage.getItem("user"));
+        loginUser && setBoard({...board, writer:loginUser.id});
+    }, [])  //[]안에 들어가는 useState변수가 변경될 때마다 해당 useEffect가 호출됨
 
     const changeValue = (e) => {
         setBoard({ ...board, [e.target.name]: e.target.value });
@@ -46,7 +51,7 @@ const BoardWrite = () => {
                 <FormGroup row>
                     <Label for='writer' sm={3}>글쓴이</Label>
                     <Col sm={9}>
-                        <Input type="text" name="writer" id="writer" required onChange={changeValue}/>
+                        <Input type="text" name="writer" id="writer" disabled value={board.writer}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>

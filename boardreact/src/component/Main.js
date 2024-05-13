@@ -1,17 +1,13 @@
 import {NavbarToggler, NavbarBrand, Navbar, Nav, NavItem, NavLink} from 'reactstrap';
-import {useState, useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {initState} from '../reducer';
 
 const Main = () => {
-    const [user, setUser] = useState(null);
-
-    useEffect(()=> {
-        let loginUser = JSON.parse(sessionStorage.getItem("user"));
-        loginUser && setUser({...loginUser});  //loginUser가 null이 아닐 때만 setUser
-    }, [])
+    const user = useSelector(state=>state.persistedReducer.user);
+    const dispatch = useDispatch();
 
     const logout = () => {
-        sessionStorage.removeItem("user");
-        setUser(null);
+        dispatch({type:'user', payload:initState.user})
     }
 
     return(
@@ -20,7 +16,7 @@ const Main = () => {
             <NavbarToggler className='mr-auto' />
             <Nav navbar>
                 {
-                    user !== null ?
+                    user.name !== '' ?
                     (<><NavItem>
                             <NavLink href='#'><b>{user.name}</b></NavLink>
                         </NavItem>

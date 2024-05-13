@@ -1,6 +1,7 @@
 import { Col, Button, FormGroup, Input, Table, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const BoardList = () => {
 
@@ -10,11 +11,11 @@ const BoardList = () => {
     const [pageInfo, setPageInfo] = useState({});
     const [word, setWord] = useState('');
     const [type, setType] = useState('');
-    const [user, setUser] = useState(null);
+    const user = useSelector(state=>state.persistedReducer.user);
 
     useEffect(()=>{
         let loginUser = JSON.parse(sessionStorage.getItem("user"));
-        loginUser && setUser({...loginUser});
+        // loginUser && setUser({...loginUser});
         submit(1);
     }, [])
 
@@ -68,7 +69,7 @@ const BoardList = () => {
                     <Button onClick={()=>submit(1)}>검색</Button>
                 </Col>
                 <Col sm={3}>
-                    {user && <Button tag="a" href="/boardWrite" color='success'>글쓰기</Button>}
+                    {user.id !== '' && <Button tag="a" href="/boardWrite" color='success'>글쓰기</Button>}
                 </Col>
             </FormGroup>
             <Table bordered style={{margin:"0 auto", width:"900px"}}>

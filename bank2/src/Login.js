@@ -1,12 +1,14 @@
 import {useState} from 'react';
+import { useAtom } from 'jotai';
+import { userAtom } from './atoms';
 import axios from 'axios';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {useNavigate} from 'react-router-dom';
 
 export const Login = () => {
     const navigate = useNavigate();
-
     const [mem, setMem] = useState({id:'', password:''});
+    const [user, setUser] = useAtom(userAtom);
 
     const changeValue = (e) => {
         setMem({...mem, [e.target.name]:e.target.value});
@@ -16,6 +18,7 @@ export const Login = () => {
         e.preventDefault();
         axios.post("http://localhost:8090/login", mem)
             .then(res=> {
+                setUser(res.data);
                 navigate("/makeAccount");
             })
             .catch(err=> {

@@ -1,10 +1,15 @@
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { initUser, userAtom } from './atoms';
 import {NavbarToggler, NavbarBrand, Navbar, Nav, NavItem, NavLink, 
         UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [user, setUser] = useAtom(userAtom);
+    const navigate = useNavigate();
+
     const divStyle = {
         backgroundColor : '#ebe3b7',
         width : '100%',
@@ -13,11 +18,14 @@ const Header = () => {
         top : '0px',
         zIndex : 10
     };
+
     const toggle = () => {
         setIsOpen(!isOpen);
     }
 
     const logout = () => {
+        setUser(initUser);
+        navigate("/");
     }
 
     return(

@@ -6,6 +6,7 @@ const Main = () => {
         <div style={{top:"80px", width:"100%", height:"100%"}}>
             <Section0/>
             <Section1/>
+            <div className="bar"></div>
         </div>
     )
 }

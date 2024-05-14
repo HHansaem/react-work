@@ -2,8 +2,6 @@ import {Link} from 'react-router-dom';
 import { useState } from 'react';
 import {NavbarToggler, NavbarBrand, Navbar, Nav, NavItem, NavLink, 
         UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
-import {useSelector, useDispatch} from 'react-redux';
-import { initState } from './reducer';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,11 +17,7 @@ const Header = () => {
         setIsOpen(!isOpen);
     }
 
-    const user = useSelector(state=>state.persistedReducer.user);
-    const dispatch = useDispatch();
-
     const logout = () => {
-        dispatch({type:'user', payload:initState.user});
     }
 
     return(

@@ -2,11 +2,9 @@ import {useState} from 'react';
 import axios from 'axios';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {useNavigate} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 
 export const Login = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [mem, setMem] = useState({id:'', password:''});
 
@@ -18,7 +16,6 @@ export const Login = () => {
         e.preventDefault();
         axios.post("http://localhost:8090/login", mem)
             .then(res=> {
-                dispatch({type:'user', payload:res.data});
                 navigate("/makeAccount");
             })
             .catch(err=> {

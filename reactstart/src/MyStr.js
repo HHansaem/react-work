@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function MyNumber ({param, setParam}) {
+function MyStr({param, setParam}) {
     const [data, setData] = useState();
 
     return(
@@ -12,4 +12,4 @@ function MyNumber ({param, setParam}) {
     )
 }
 
-export default MyNumber;
+export default MyStr;

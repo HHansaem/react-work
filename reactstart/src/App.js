@@ -1,6 +1,9 @@
 import './App.css';
 import {useState} from 'react';
 import MyNumber from './MyNumber';
+import MyStr from './MyStr';
+import MyObj from './MyObj';
+import MyArr from './MyArr';
 
 function App() {
   const [number, setNumber] = useState(10);
@@ -10,10 +13,10 @@ function App() {
 
   return (
     <div className="App">
-      <MyNumber param={number}/>
-      {/* <MyStr param={str}/>
-      <MyObj param={obj}/>
-      <MyArr param={arr}/> */}
+      <MyNumber param={number} setParam={setNumber}/>
+      <MyStr param={str} setParam={setStr}/>
+      <MyObj param={obj} setParam={setObj}/>
+      <MyArr param={arr} setParam={setArr}/>
     </div>
   );
 }

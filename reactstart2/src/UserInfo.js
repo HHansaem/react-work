@@ -7,7 +7,6 @@ const UserInfo = () => {
     const {puser} = useParams();
 
     useEffect(()=> {
-        let ouser = JSON.parse(puser);
         if(puser == null) {
             axios.get("http://localhost:8090/userInfo")
                 .then(res=> {
@@ -16,7 +15,8 @@ const UserInfo = () => {
                 .catch(err=> {
                     console.log(err);
                 })
-        } else {
+            } else {
+            let ouser = JSON.parse(puser);
             setUser({...ouser});
         }
     }, [])

@@ -1,17 +1,20 @@
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 const UserInfoForm = () => {
     const [name, setName] = useState({ name: '' });
     const [user, setUser] = useState({ name: '', tel: '', email: '', address: '' });
-    const [isUser, setIsUser] = useState(false);
+    // const [isUser, setIsUser] = useState(false);
+    const navigate = useNavigate();
 
     const submit = (e) => {
         axios.get(`http://localhost:8090/getUser1/${name}`)
             .then(res => {
                 console.log(res.data);
                 setUser({...res.data});
-                setIsUser(true);
+                // setIsUser(true);
+                navigate(`/userInfo/${JSON.stringify(res.data)}`);
             })
             .catch(err => {
                 console.log(err);
@@ -31,7 +34,7 @@ const UserInfoForm = () => {
                     </tr>
                 </tbody>
             </table>
-            {isUser &&
+            {/* {isUser &&
                 <table border="1">
                     <tbody>
                         <tr>
@@ -52,7 +55,7 @@ const UserInfoForm = () => {
                         </tr>
                     </tbody>
                 </table>
-            }
+            } */}
         </div>
     )
 }

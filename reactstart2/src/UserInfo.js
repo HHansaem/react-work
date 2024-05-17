@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react';
+import {useParams} from 'react-router-dom';
 import axios from 'axios';
 
 const UserInfo = () => {
     const [user, setUser] = useState({name:'', tel:'', email:'', address:''});
+    const {puser} = useParams();
+
     useEffect(()=> {
-        axios.get("http://localhost:8090/userInfo")
-            .then(res=> {
-                setUser({...res.data});
-            })
-            .catch(err=> {
-                console.log(err);
-            })
+        let ouser = JSON.parse(puser);
+        if(puser == null) {
+            axios.get("http://localhost:8090/userInfo")
+                .then(res=> {
+                    setUser({...res.data});
+                })
+                .catch(err=> {
+                    console.log(err);
+                })
+        } else {
+            setUser({...ouser});
+        }
     }, [])
 
     return(

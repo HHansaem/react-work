@@ -1,7 +1,8 @@
 import {useState} from 'react';
+import axios from 'axios';
 
 const User = () => {
-    const [user, setUser] = useState({id:'', tel:'', email:'', address:''});
+    const [user, setUser] = useState({name:'', tel:'', email:'', address:''});
 
     const changeValue = (e) => {
         setUser({...user, [e.target.name]:e.target.value});
@@ -9,6 +10,14 @@ const User = () => {
 
     const submit = (e) => {
         console.log(user);
+
+        axios.post("http://localhost:8090/regUser1", user)
+            .then(res=> {
+                alert(res.data);
+            })
+            .catch(err=> {
+                console.log(err);
+            })
     }
 
     return(

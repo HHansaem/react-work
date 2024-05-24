@@ -2,26 +2,34 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Label, Input, Table } from 'reactstrap';
 import { tokenAtom } from './atoms';
-import {useAtomValue} from 'jotai';
+import {useAtom} from 'jotai';
+import {useNavigate} from 'react-router-dom';
 
 const User = () => {
     const divStyle = {margin:"0 auto", padding:'20px', width: '400px', border:'1px solid lightgray', borderRadius: '10px'};
     const [member, setMember] = useState({id:'', username:'', password:'', email:''});
-    const token = useAtomValue(tokenAtom);
+    const [token, setToken] = useAtom(tokenAtom);
+    const navigate = useNavigate();
 
     const changeValue = (e) => {
         setMember({...member, [e.target.name]:e.target.value});
     }
 
     useEffect(() => {
+        console.log(token);
         axios.get(`http://localhost:8090/user`, 
-            {
-                headers:{Authorization:token.access_token}
-            }
-        )
+                {
+                    headers:{Authorization:JSON.stringify(token)}
+                }
+            )
             .then(res=> {
                 console.log(res);
-                setMember({...res.data});
+                if(res.headers.Authorization != null) {  //토큰 만료되어 다시 받음
+                    setToken(JSON.parse(res.headers.Authorization));
+                    navigate("/user");
+                } else {  //데이터 받음
+                    setMember({...res.data});
+                }
             })
             .catch(err=> {
                 console.log(err);

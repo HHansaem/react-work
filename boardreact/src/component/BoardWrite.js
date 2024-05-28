@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {url} from '../config';
 
 const BoardWrite = () => {
     const divStyle = {margin:"0 auto", padding:'20px', width: '650px', border:'1px solid lightgray', borderRadius: '10px'};
-    const [board, setBoard] = useState({ writer: '', subject: '', content: '' });
+    const user = useSelector(state=>state.persistedReducer.user);
+    const [board, setBoard] = useState({ writer: user.id, subject: '', content: '' });
     const [fileList, setFileList] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(()=> {
-        let loginUser = JSON.parse(sessionStorage.getItem("user"));
-        loginUser && setBoard({...board, writer:loginUser.id});
-    }, [])  //[]안에 들어가는 useState변수가 변경될 때마다 해당 useEffect가 호출됨
+    // useEffect(()=> {
+    //     let loginUser = JSON.parse(sessionStorage.getItem("user"));
+    //     loginUser && setBoard({...board, writer:loginUser.id});
+    // }, [])  //[]안에 들어가는 useState변수가 변경될 때마다 해당 useEffect가 호출됨
 
     const changeValue = (e) => {
         setBoard({ ...board, [e.target.name]: e.target.value });

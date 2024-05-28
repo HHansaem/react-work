@@ -2,6 +2,7 @@ import { Col, Button, FormGroup, Input, Table, Pagination, PaginationItem, Pagin
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { url } from '../config';
 
 const BoardList = () => {
 
@@ -20,8 +21,8 @@ const BoardList = () => {
     }, [])
 
     const submit = (page) => {
-        const url = `http://localhost:8090/boardList?page=${page}&type=${type}&word=${word}`; 
-        axios.get(url)
+        const listUrl = `${url}/boardList?page=${page}&type=${type}&word=${word}`; 
+        axios.get(listUrl)
             .then(res=> {
                 let pageInfo = res.data.pageInfo;
                 setBoardList([...res.data.boardList]);
@@ -38,8 +39,8 @@ const BoardList = () => {
     }
 
     const deleteBoard = (num) => {
-        const url = `http://localhost:8090/deleteBoard?num=${num}`;
-        axios.get(url)
+        const deleteUrl = `${url}/deleteBoard?num=${num}`;
+        axios.get(deleteUrl)
             .then(res=> {
                 let modBoardList = boardList.filter(board=>board.num!==num);
                 setBoardList([...modBoardList]);
